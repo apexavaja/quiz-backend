@@ -1,0 +1,23 @@
+{
+    "development": {
+        "username": "hrana",
+        "password": "Hirenr@n@",
+        "database": "quizApp",
+        "host": "35.187.243.47",
+        "dialect": "mysql"
+    },
+    "test": {
+        "username": "hrana",
+        "password": "Hirenr@n@",
+        "database": "quizApp",
+        "host": "35.187.243.47",
+        "dialect": "mysql"
+    },
+    "production": {
+        "username": "hrana",
+        "password": "Hirenr@n@",
+        "database": "quizApp",
+        "host": "35.187.243.47",
+        "dialect": "mysql"
+    }
+}
