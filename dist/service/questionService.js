@@ -1,57 +1,52 @@
-import { RequestHandler, NextFunction } from 'express';
-import IRequest from '../interface/IRequest';
-import IResponse from '../interface/IResponse';
-import * as _ from 'lodash';
-import Boom = require('boom');
-import IQuestion from '../interface/IQuestion';
-import QuestionModel from '../models/questionModel';
-import { Sequelize } from 'sequelize';
-
-export const validateDate: RequestHandler = async (req: IRequest, res: IResponse, next: NextFunction) => {
+"use strict";
+var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
+    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
+    return new (P || (P = Promise))(function (resolve, reject) {
+        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
+        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
+        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
+        step((generator = generator.apply(thisArg, _arguments || [])).next());
+    });
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+const _ = require("lodash");
+const Boom = require("boom");
+const questionModel_1 = require("../models/questionModel");
+exports.validateDate = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
     const params = _.merge(req.body, req.params);
-
     if (_.isEmpty(params.question)) {
         const err = new Error("Enter question");
         return res.send(Boom.boomify(err, { statusCode: 400 }));
     }
-
     if (_.isEmpty(params.option_a)) {
         const err = new Error("Enter option_a");
         return res.send(Boom.boomify(err, { statusCode: 400 }));
     }
-
     if (_.isEmpty(params.option_b)) {
         const err = new Error("Enter option_b");
         return res.send(Boom.boomify(err, { statusCode: 400 }));
     }
-
     if (_.isEmpty(params.option_c)) {
         const err = new Error("Enter option_c");
         return res.send(Boom.boomify(err, { statusCode: 400 }));
     }
-
     if (_.isEmpty(params.option_d)) {
         const err = new Error("Enter option_d");
         return res.send(Boom.boomify(err, { statusCode: 400 }));
     }
-
     if (_.isEmpty(params.correct)) {
         const err = new Error("Enter correct answer");
         return res.send(Boom.boomify(err, { statusCode: 400 }));
     }
-
     if (_.isEmpty(params.type)) {
         const err = new Error("Enter type of question");
         return res.send(Boom.boomify(err, { statusCode: 400 }));
     }
-
     return next();
-}
-
-export const insertQuestion: RequestHandler = async (req: IRequest, res: IResponse, next: NextFunction) => {
+});
+exports.insertQuestion = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
     const params = _.merge(req.body, req.params);
-
-    const packet: IQuestion = {
+    const packet = {
         question: params.question,
         option_a: params.option_a,
         option_b: params.option_b,
@@ -59,55 +54,48 @@ export const insertQuestion: RequestHandler = async (req: IRequest, res: IRespon
         option_d: params.option_d,
         correct: params.correct,
         type: params.type
-    }
-
+    };
     try {
-        const data = await QuestionModel.create(packet);
+        const data = yield questionModel_1.default.create(packet);
         req.question = data;
         return next();
-    } catch (error) {
+    }
+    catch (error) {
         console.log(error);
         const err = new Error("server side error");
         return res.send(Boom.boomify(err, { statusCode: 500 }));
     }
-
-}
-
-export const getQuestionById: RequestHandler = async (req: IRequest, res: IResponse, next: NextFunction) => {
+});
+exports.getQuestionById = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
     const params = _.merge(req.body, req.params);
-
     if (_.isEmpty(params.id)) {
         const err = new Error("Question's id is require");
         return res.send(Boom.boomify(err, { statusCode: 400 }));
     }
-
     try {
-        const data = await QuestionModel.findAll({
+        const data = yield questionModel_1.default.findAll({
             where: {
                 id: params.id,
                 isDel: 0
             }
         });
-
         req.question = data;
         return next();
-    } catch (error) {
+    }
+    catch (error) {
         console.log(error);
         const err = new Error("server side error");
         return res.send(Boom.boomify(err, { statusCode: 500 }));
     }
-}
-
-export const getQuestionByType: RequestHandler = async (req: IRequest, res: IResponse, next: NextFunction) => {
+});
+exports.getQuestionByType = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
     const params = _.merge(req.body, req.params);
-
     if (_.isEmpty(params.type)) {
         const err = new Error("Question's type is require");
         return res.send(Boom.boomify(err, { statusCode: 400 }));
     }
-
     try {
-        const data = await QuestionModel.findAll({
+        const data = yield questionModel_1.default.findAll({
             where: {
                 type: params.type,
                 isDel: 0
@@ -115,23 +103,21 @@ export const getQuestionByType: RequestHandler = async (req: IRequest, res: IRes
         });
         req.question = data;
         return next();
-    } catch (error) {
+    }
+    catch (error) {
         console.log(error);
         const err = new Error("server side error");
         return res.send(Boom.boomify(err, { statusCode: 500 }));
     }
-}
-
-export const findQuestionById: RequestHandler = async (req: IRequest, res: IResponse, next: NextFunction) => {
+});
+exports.findQuestionById = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
     const params = _.merge(req.body, req.params);
-
     if (_.isEmpty(params.id)) {
         const err = new Error("Question's id is require");
         return res.send(Boom.boomify(err, { statusCode: 400 }));
     }
-
     try {
-        const data = await QuestionModel.findAll({
+        const data = yield questionModel_1.default.findAll({
             where: {
                 id: params.id,
                 isDel: 0
@@ -142,24 +128,21 @@ export const findQuestionById: RequestHandler = async (req: IRequest, res: IResp
             return res.send(Boom.boomify(err, { statusCode: 400 }));
         }
         return next();
-    } catch (error) {
+    }
+    catch (error) {
         console.log(error);
         const err = new Error("server side error");
         return res.send(Boom.boomify(err, { statusCode: 500 }));
     }
-
-}
-
-export const findQuestionByType: RequestHandler = async (req: IRequest, res: IResponse, next: NextFunction) => {
+});
+exports.findQuestionByType = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
     const params = _.merge(req.body, req.params);
-
     if (_.isEmpty(params.type)) {
         const err = new Error("Question's type is require");
         return res.send(Boom.boomify(err, { statusCode: 400 }));
     }
-
     try {
-        const data = await QuestionModel.findAll({
+        const data = yield questionModel_1.default.findAll({
             where: {
                 type: params.type,
                 isDel: 0
@@ -170,19 +153,17 @@ export const findQuestionByType: RequestHandler = async (req: IRequest, res: IRe
             return res.send(Boom.boomify(err, { statusCode: 400 }));
         }
         return next();
-    } catch (error) {
+    }
+    catch (error) {
         console.log(error);
         const err = new Error("server side error");
         return res.send(Boom.boomify(err, { statusCode: 500 }));
     }
-
-}
-
-export const updateQuestion: RequestHandler = async (req: IRequest, res: IResponse, next: NextFunction) => {
+});
+exports.updateQuestion = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
     const params = _.merge(req.body, req.params);
-
     try {
-        const data = await QuestionModel.update({
+        const data = yield questionModel_1.default.update({
             question: params.question,
             option_a: params.option_a,
             option_b: params.option_b,
@@ -197,19 +178,17 @@ export const updateQuestion: RequestHandler = async (req: IRequest, res: IRespon
         });
         req.question = data;
         return next();
-    } catch (error) {
+    }
+    catch (error) {
         console.log(error);
         const err = new Error("server side error");
         return res.send(Boom.boomify(err, { statusCode: 500 }));
     }
-
-}
-
-export const deleteQuistionById: RequestHandler = async (req: IRequest, res: IResponse, next: NextFunction) => {
+});
+exports.deleteQuistionById = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
     const params = _.merge(req.body, req.params);
-
     try {
-        const data = await QuestionModel.update({
+        const data = yield questionModel_1.default.update({
             isDel: 1
         }, {
             where: {
@@ -218,18 +197,17 @@ export const deleteQuistionById: RequestHandler = async (req: IRequest, res: IRe
         });
         req.question = data;
         return next();
-    } catch (error) {
+    }
+    catch (error) {
         console.log(error);
         const err = new Error("server side error");
         return res.send(Boom.boomify(err, { statusCode: 500 }));
     }
-}
-
-export const deleteQuistionByType: RequestHandler = async (req: IRequest, res: IResponse, next: NextFunction) => {
+});
+exports.deleteQuistionByType = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
     const params = _.merge(req.body, req.params);
-
     try {
-        const data = await QuestionModel.update({
+        const data = yield questionModel_1.default.update({
             isDel: 1
         }, {
             where: {
@@ -238,27 +216,11 @@ export const deleteQuistionByType: RequestHandler = async (req: IRequest, res: I
         });
         req.question = data;
         return next();
-    } catch (error) {
+    }
+    catch (error) {
         console.log(error);
         const err = new Error("server side error");
         return res.send(Boom.boomify(err, { statusCode: 500 }));
     }
-}
-
-export const getTypesOfQuestions: RequestHandler = async (req: IRequest, res: IResponse, next: NextFunction) => {
-
-    try {
-        const data = await QuestionModel.findAll({
-            where: {
-                isDel: 0
-            },
-            attributes: ['type'],
-            raw: true
-        });
-        const types = data.filter((value,index)=>data.indexOf(value)===index);
-        console.log(data);
-    } catch (error) {
-
-    }
-
-}
+});
+//# sourceMappingURL=questionService.js.map

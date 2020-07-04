@@ -1,0 +1,1 @@
+{"version":3,"file":"testController.js","sourceRoot":"","sources":["../../src/controller/testController.ts"],"names":[],"mappings":";;AAIa,QAAA,IAAI,GAAmB,CAAC,GAAa,EAAE,GAAc,EAAE,IAAkB,EAAE,EAAE;IACtF,OAAO,GAAG,CAAC,IAAI,CAAC;QACZ,GAAG,EAAE,MAAM;KACd,CAAC,CAAC;AACP,CAAC,CAAA"}
