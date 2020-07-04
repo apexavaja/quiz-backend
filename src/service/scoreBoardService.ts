@@ -14,7 +14,7 @@ export const validateDate: RequestHandler = async (req: IRequest, res: IResponse
         const err = new Error("Quiz type is require");
         return res.send(Boom.boomify(err, { statusCode: 400 }));
     }
-    console.log("score checking ", params.score);
+
     if (_.isEmpty(params.score.toString())) {
         const err = new Error("Quiz score is require");
         return res.send(Boom.boomify(err, { statusCode: 400 }));
