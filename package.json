@@ -43,7 +43,7 @@
         "express": "^4.17.1",
         "express-boom": "^3.0.0",
         "express-boom-v2": "^4.2.2",
-        "express-fileupload": "^1.1.6",
+        "express-fileupload": "^1.1.9",
         "helmet": "^3.21.2",
         "http-status": "^1.4.2",
         "install": "^0.13.0",
